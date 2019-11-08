@@ -1,7 +1,7 @@
 import React from 'react'
 import NextApp from 'next/app'
 
-import { appWithTranslation } from "../config/i18n"
+import { appWithTranslation } from "../i18n"
 
 class App extends NextApp {
   // Only uncomment this method if you have blocking data requirements for
@@ -9,12 +9,14 @@ class App extends NextApp {
   // perform automatic static optimization, causing every page in your app to
   // be server-side rendered.
   //
-  // static async getInitialProps(appContext) {
-  //   // calls page's `getInitialProps` and fills `appProps.pageProps`
-  //   const appProps = await App.getInitialProps(appContext);
-  //
-  //   return { ...appProps }
-  // }
+  static async getInitialProps(appContext) {
+    // calls page's `getInitialProps` and fills `appProps.pageProps`
+    const appProps = await NextApp.getInitialProps(appContext);
+
+    
+  
+    return { ...appProps, pageProps: { namespacesRequired: ["common"]} }
+  }
 
   render() {
     const { Component, pageProps } = this.props

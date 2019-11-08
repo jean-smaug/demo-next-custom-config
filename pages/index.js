@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import fetch from "isomorphic-unfetch"
-import useSWR from 'swr'
+import { useTranslation } from '../i18n'
 
 let called = false
 
 const Home = () => {
   const [users, setUsers] = useState([])
+  const { t } = useTranslation("common")
   useEffect(() => {
     if(called) return
 
@@ -22,6 +23,7 @@ const Home = () => {
   
   return (
     <div>
+      <h1>{t('title')}</h1>
       {
         users.map(user => (
           <div key={user.id}>
