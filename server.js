@@ -17,13 +17,10 @@ const port = "8081";
   
     server.use(nextI18NextMiddleware(nextI18next))
   
+    server.get("/about", (req, res) => app.render(req, res, "/custom-about"))
+
     server.get('*', (req, res) => handle(req, res))
   
     await server.listen(port)
     console.log(`> Ready on http://localhost:${port}`) // eslint-disable-line no-console
 })()
-
-        // case "/about":
-        //     app.render(req, res, '/custom-about', query)      
-        //     break;
-    
