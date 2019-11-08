@@ -1,38 +1,35 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import fetch from "isomorphic-unfetch"
+import Link from 'next/link'
 import { useTranslation } from '../i18n'
 
-let called = false
-
-const Home = () => {
-  const [users, setUsers] = useState([])
+const Home = (props) => {
   const { t } = useTranslation("common")
-  useEffect(() => {
-    if(called) return
 
-    async function getUsers() {
-      const users = await (await fetch('http://jsonplaceholder.typicode.com/users')).json()
-
-      setUsers(users)
-    }
-
-    getUsers()
-
-    called = true
-  })
+  if(!props.users || props.users.length === 0) {
+    return 'Loading...'
+  }
   
   return (
     <div>
       <h1>{t('title')}</h1>
-      {
-        users.map(user => (
-          <div key={user.id}>
-            {user.name}
-          </div>
-        ))
-      }
+      <ul>
+        {
+          props.users.map(user => (
+            <Link href={{ pathname: `/users/${user.id}/posts` }} key={user.id}>
+              <li>{user.name}</li>
+            </Link>
+          ))
+        }
+      </ul>
     </div>
   )
+}
+
+Home.getInitialProps = async () => {
+  const users = await (await fetch('http://jsonplaceholder.typicode.com/users')).json()
+
+  return { users }
 }
 
 export default Home

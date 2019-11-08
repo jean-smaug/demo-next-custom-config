@@ -9,17 +9,16 @@ class App extends NextApp {
   // perform automatic static optimization, causing every page in your app to
   // be server-side rendered.
   //
-  static async getInitialProps(appContext) {
-    // calls page's `getInitialProps` and fills `appProps.pageProps`
-    const appProps = await NextApp.getInitialProps(appContext);
-
-    
+//   static async getInitialProps(appContext) {
+//     // calls page's `getInitialProps` and fills `appProps.pageProps`
+//     const appProps = await NextApp.getInitialProps(appContext);   
   
-    return { ...appProps, pageProps: { namespacesRequired: ["common"]} }
-  }
+//     return { pageProps: { namespacesRequired: ["common"]} }
+//   }
 
   render() {
     const { Component, pageProps } = this.props
+
     return <Component {...pageProps} />
   }
 }

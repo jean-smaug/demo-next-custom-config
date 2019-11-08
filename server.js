@@ -18,11 +18,13 @@ const port = "8081";
     await app.prepare()
     const server = express()
 
-    if(NODE_ENV === "development") {
-        server.use(morgan("dev"))
-    }
+    // if(NODE_ENV === "development") {
+    //     server.use(morgan("dev"))
+    // }
 
     server.use(nextI18NextMiddleware(nextI18next))
+
+    server.get("/users/:id/posts", (req, res) => app.render(req, res, "/user-posts", { userId: req.params.id }))
 
     server.get("/about", (req, res) => app.render(req, res, "/custom-about"))
 
