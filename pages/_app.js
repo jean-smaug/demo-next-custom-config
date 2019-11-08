@@ -4,6 +4,7 @@ import NextApp from 'next/app'
 import "modern-normalize"
 
 import { appWithTranslation } from "../i18n"
+import { DataProvider } from "../contexts/Data"
 
 class App extends NextApp {
   // Only uncomment this method if you have blocking data requirements for
@@ -21,7 +22,11 @@ class App extends NextApp {
   render() {
     const { Component, pageProps } = this.props
 
-    return <Component {...pageProps} />
+    return (
+        <DataProvider>
+            <Component {...pageProps} />
+        </DataProvider>
+    ) 
   }
 }
 

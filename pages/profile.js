@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { withData } from '../contexts/Data'
 import Card from "../components/Card"
 
 import "../assets/styles/layout.scss"
@@ -26,4 +27,4 @@ UserPosts.getInitialProps = async (ctx) => {
     return { posts }
 }
 
-export default UserPosts
+export default withData(UserPosts)
