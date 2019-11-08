@@ -1,6 +1,8 @@
 import React from 'react'
 import NextApp from 'next/app'
 
+import "modern-normalize"
+
 import { appWithTranslation } from "../i18n"
 
 class App extends NextApp {

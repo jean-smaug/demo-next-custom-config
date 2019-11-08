@@ -16,7 +16,7 @@ const Home = (props) => {
       <ul>
         {
           props.users.map(user => (
-            <Link href={{ pathname: `/users/${user.id}/posts` }} key={user.id}>
+            <Link href={{ pathname: `/profile/${user.id}` }} key={user.id}>
               <li>{user.name}</li>
             </Link>
           ))
