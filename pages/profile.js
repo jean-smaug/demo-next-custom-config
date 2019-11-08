@@ -1,16 +1,22 @@
 import React from 'react'
 
+import Card from "../components/Card"
+
+import "../assets/styles/layout.scss"
+
 const UserPosts = (props) => {
     return (
-        <ul>
-            {
-                props.posts.map(post => (
-                    <li key={post.id}>
-                        {post.title}
-                    </li>
-                ))
-            }
-        </ul>
+        <div>
+            <ul className='FlexGrid'>
+                {
+                    props.posts.map(post => (
+                        <li key={post.id} className='FlexGridItem'>
+                            <Card {...post} />
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
     )
 }
 
