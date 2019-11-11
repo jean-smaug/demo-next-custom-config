@@ -11,8 +11,6 @@ const Home = (props) => {
     return 'Loading...'
   }
 
-  props.setUsers(props.users)
-
   return (
     <div>
       <h1>{t('title')}</h1>
@@ -27,12 +25,6 @@ const Home = (props) => {
       </ul>
     </div>
   )
-}
-
-Home.getInitialProps = async () => {
-  const users = await (await fetch('http://jsonplaceholder.typicode.com/users')).json()
-  
-  return { users }
 }
 
 export default withData(Home, { keyName: "users", url: "http://jsonplaceholder.typicode.com/users" })

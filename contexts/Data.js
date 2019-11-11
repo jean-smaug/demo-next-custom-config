@@ -2,26 +2,38 @@ import React, { useState } from "react"
 
 const Data = React.createContext()
 
-export function withData(Component) {
+export function withData(Component, options) {
+    if(!options.url || !options.keyName) {
+        throw new Error("Must provide keyName and url")
+    }
+
     return class extends React.Component {
         static async getInitialProps (ctx) {
+            const response = await (await fetch(options.url)).json()
+            
             const props =
             (Component.getInitialProps
-              ? await Component.getInitialProps(ctx)
-              : {})
-      
+                ? await Component.getInitialProps(ctx)
+                : {})
+            
             if (props.statusCode && ctx.res) {
-              ctx.res.statusCode = props.statusCode
+                ctx.res.statusCode = props.statusCode
             }
-      
-            return props
+            
+            return { ...props, [options.keyName]: response }
         }
-
-       render() {
+        
+        render() {
             return (
-            <Data.Consumer>
-                {(value) => <Component {...{...value, ...this.props}} />}
-            </Data.Consumer>
+                <Data.Consumer>
+                    {(value) => {
+                        const setter = `set${options.keyName.charAt(0).toUpperCase()}${options.keyName.slice(1)}`
+
+                        value[setter](this.props[options.keyName])
+
+                        return <Component {...value} />
+                    }}
+                </Data.Consumer>
             )
         }
     }
