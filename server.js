@@ -28,7 +28,7 @@ const port = "8081";
 
     server.get("/profile/:userId", (req, res) => app.render(req, res, "/profile", { userId: req.params.userId }))
 
-    server.get("/about", (req, res) => app.render(req, res, "/custom-about"))
+    server.get("/", (req, res) => app.render(req, res, "/index"))
 
     server.get('*', (req, res) => handle(req, res))
 

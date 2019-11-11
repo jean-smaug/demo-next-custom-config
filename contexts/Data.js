@@ -16,7 +16,6 @@ export function withData(Component, options) {
                 ? await Component.getInitialProps(ctx)
                 : {})
                 
-                console.log(sprintf(options.url, ctx.query))
             const response = await (await fetch(sprintf(options.url, ctx.query))).json()
 
             if (props.statusCode && ctx.res) {
@@ -44,6 +43,25 @@ export function withData(Component, options) {
 }
 
 export function DataProvider(props) {
+    // const states = props.config.map(({ name, type }) => {
+    //     let defaultValue
+    //     switch (type) {
+    //         case "array":
+    //             defaultValue = []
+    //             break;
+    //         case "string":
+    //             defaultValue = ""
+    //             break;
+    //         default:
+    //             defaultValue = null
+    //             break;
+    //     }
+
+    //     const [value, setter] = useState(defaultValue)
+
+    //     return { name, type, value, setter }
+    // })
+
     const [users, setUsers] = useState([])
     const [posts, setPosts] = useState([])
     const [comments, setComments] = useState([])
