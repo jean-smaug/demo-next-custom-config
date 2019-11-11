@@ -27,12 +27,12 @@ export function withData(Component, options) {
         render() {
             return (
                 <Data.Consumer>
-                    {(value) => {
-                        const setter = `set${options.keyName.charAt(0).toUpperCase()}${options.keyName.slice(1)}`
+                    {({ setters, values }) => {
+                        const setterName = `set${options.keyName.charAt(0).toUpperCase()}${options.keyName.slice(1)}`
 
-                        value[setter](this.props[options.keyName])
+                        setters[setterName](this.props[options.keyName])
 
-                        return <Component {...value} />
+                        return <Component {...values} />
                     }}
                 </Data.Consumer>
             )
@@ -46,14 +46,18 @@ export function DataProvider(props) {
     const [comments, setComments] = useState([])
 
     return (
-        <Data.Provider 
+        <Data.Provider
             value={{
-                users,
-                posts,
-                comments,
-                setUsers,
-                setPosts,
-                setComments,
+                values: {
+                    users,
+                    posts,
+                    comments,
+                },
+                setters: {
+                    setUsers,
+                    setPosts,
+                    setComments,
+                },
             }}
         >
             {props.children}
