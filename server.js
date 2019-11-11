@@ -24,7 +24,9 @@ const port = "8081";
 
     server.use(nextI18NextMiddleware(nextI18next))
 
-    server.get("/profile/:id", (req, res) => app.render(req, res, "/profile", { userId: req.params.id }))
+    server.get("/posts/:postId", (req, res) => app.render(req, res, "/post", { postId: req.params.postId }))
+
+    server.get("/profile/:userId", (req, res) => app.render(req, res, "/profile", { userId: req.params.userId }))
 
     server.get("/about", (req, res) => app.render(req, res, "/custom-about"))
 

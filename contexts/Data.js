@@ -16,6 +16,7 @@ export function withData(Component, options) {
                 ? await Component.getInitialProps(ctx)
                 : {})
                 
+                console.log(sprintf(options.url, ctx.query))
             const response = await (await fetch(sprintf(options.url, ctx.query))).json()
 
             if (props.statusCode && ctx.res) {

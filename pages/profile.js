@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from "next/link"
 
 import { withData } from '../contexts/Data'
 import Card from "../components/Card"
@@ -15,7 +16,11 @@ const UserPosts = (props) => {
                 {
                     props.posts.map(post => (
                         <li key={post.id} className='FlexGridItem'>
-                            <Card {...post} />
+                            <Link href={`/posts?postId=${post.id}`} as={`/posts/${post.id}`}>
+                                <a>
+                                    <Card {...post} />
+                                </a>
+                            </Link>
                         </li>
                     ))
                 }
