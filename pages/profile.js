@@ -16,7 +16,7 @@ const UserPosts = (props) => {
                 {
                     props.posts.map(post => (
                         <li key={post.id} className='FlexGridItem'>
-                            <Link href={`/posts?postId=${post.id}`} as={`/posts/${post.id}`}>
+                            <Link href={ {pathname: "/posts", query: { postId: post.id } }} as={`/posts/${post.id}`}>
                                 <a>
                                     <Card {...post} />
                                 </a>

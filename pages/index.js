@@ -17,7 +17,10 @@ const Home = (props) => {
       <ul>
         {
           props.users.map(user => (
-            <Link href={`/profile?userId=${user.id}`} as={`/profile/${user.id}`} key={user.id}>
+            <Link
+              href={{ pathname: "/profile", query: { userId: user.id } }}
+              as={`/profile/${user.id}`} key={user.id}
+            >
               <a>{user.name}</a>
             </Link>
           ))
