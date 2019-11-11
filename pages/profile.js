@@ -21,10 +21,7 @@ const UserPosts = (props) => {
     )
 }
 
-UserPosts.getInitialProps = async (ctx) => {
-    const posts = await (await fetch(`http://jsonplaceholder.typicode.com/posts?userId=${ctx.query.userId}`)).json()
-
-    return { posts }
-}
-
-export default withData(UserPosts)
+export default withData(UserPosts, {
+    keyName: "posts",
+    url: "http://jsonplaceholder.typicode.com/posts?userId=%(userId)s"
+})

@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { sprintf } from "sprintf-js"
 
 const Data = React.createContext()
 
@@ -9,20 +10,20 @@ export function withData(Component, options) {
 
     return class extends React.Component {
         static async getInitialProps (ctx) {
-            const response = await (await fetch(options.url)).json()
-            
             const props =
             (Component.getInitialProps
                 ? await Component.getInitialProps(ctx)
                 : {})
-            
+                
+            const response = await (await fetch(sprintf(options.url, ctx.query))).json()
+
             if (props.statusCode && ctx.res) {
                 ctx.res.statusCode = props.statusCode
             }
-            
+
             return { ...props, [options.keyName]: response }
         }
-        
+
         render() {
             return (
                 <Data.Consumer>
