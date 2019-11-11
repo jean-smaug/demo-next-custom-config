@@ -20,7 +20,7 @@ export function withData(Component) {
        render() {
             return (
             <Data.Consumer>
-                {(value) => <Component {...this.props} {...value} />}
+                {(value) => <Component {...{...value, ...this.props}} />}
             </Data.Consumer>
             )
         }
@@ -56,6 +56,9 @@ export function DataProvider(props) {
                 users,
                 posts,
                 comments,
+                setUsers,
+                setPosts,
+                setComments,
                 fetchUsers,
                 fetchPosts,
                 fetchComments,
