@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { sprintf } from "sprintf-js"
+import fetch from "isomorphic-unfetch"
 
 const Data = React.createContext()
 

@@ -1,6 +1,6 @@
 import React from 'react'
-import fetch from "isomorphic-unfetch"
 import Link from 'next/link'
+
 import { useTranslation } from '../i18n'
 import { withData } from '../contexts/Data'
 
@@ -17,8 +17,8 @@ const Home = (props) => {
       <ul>
         {
           props.users.map(user => (
-            <Link href={{ pathname: `/profile/${user.id}` }} key={user.id}>
-              <li>{user.name}</li>
+            <Link href={`/profile?userId=${user.id}`} as={`/profile/${user.id}`} key={user.id}>
+              <a>{user.name}</a>
             </Link>
           ))
         }
