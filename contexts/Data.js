@@ -9,37 +9,38 @@ export function withData(Component, options) {
         throw new Error("Must provide keyName and url")
     }
 
-    return class extends React.Component {
-        static async getInitialProps (ctx) {
-            const props =
-            (Component.getInitialProps
-                ? await Component.getInitialProps(ctx)
-                : {})
-                
-            const response = await (await fetch(sprintf(options.url, ctx.query))).json()
+    function Hoc(props) {
+        return (
+            <Data.Consumer>
+                {({ setters, values }) => {
+                    const setterName = `set${options.keyName.charAt(0).toUpperCase()}${options.keyName.slice(1)}`
 
-            if (props.statusCode && ctx.res) {
-                ctx.res.statusCode = props.statusCode
-            }
+                    setters[setterName](props[options.keyName])
 
+                    return <Component {...values} {...props.originalProps} />
+                }}
+            </Data.Consumer>
+        )
 
-            return { originalProps: props, [options.keyName]: response }
-        }
-
-        render() {
-            return (
-                <Data.Consumer>
-                    {({ setters, values }) => {
-                        const setterName = `set${options.keyName.charAt(0).toUpperCase()}${options.keyName.slice(1)}`
-
-                        setters[setterName](this.props[options.keyName])
-
-                        return <Component {...values} {...this.props.originalProps} />
-                    }}
-                </Data.Consumer>
-            )
-        }
     }
+
+    Hoc.getInitialProps = async (ctx) => {
+        const props =
+        (Component.getInitialProps
+            ? await Component.getInitialProps(ctx)
+            : {})
+            
+        const response = await (await fetch(sprintf(options.url, ctx.query))).json()
+
+        if (props.statusCode && ctx.res) {
+            ctx.res.statusCode = props.statusCode
+        }
+
+
+        return { originalProps: props, [options.keyName]: response }
+    }
+
+    return Hoc
 }
 
 export function DataProvider(props) {
