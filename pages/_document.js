@@ -1,5 +1,7 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
+import Navbar from "../components/Navbar"
+
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx)
@@ -11,6 +13,7 @@ class MyDocument extends Document {
       <Html>
         <Head />
         <body>
+          <Navbar />
           <Main />
           <NextScript />
         </body>
