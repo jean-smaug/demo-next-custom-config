@@ -6,8 +6,11 @@ import Card from "../components/Card"
 import "../assets/styles/layout.scss"
 
 const UserPosts = (props) => {
+    const user = props.users.find(user => user.id === Number(props.userId))
+
     return (
         <div>
+            {user && <h3>{user.name}</h3>}
             <ul className='FlexGrid'>
                 {
                     props.posts.map(post => (
@@ -19,6 +22,10 @@ const UserPosts = (props) => {
             </ul>
         </div>
     )
+}
+
+UserPosts.getInitialProps = (ctx) => {
+    return { userId: ctx.query.userId }
 }
 
 export default withData(UserPosts, {

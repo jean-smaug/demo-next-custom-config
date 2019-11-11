@@ -22,7 +22,8 @@ export function withData(Component, options) {
                 ctx.res.statusCode = props.statusCode
             }
 
-            return { ...props, [options.keyName]: response }
+
+            return { originalProps: props, [options.keyName]: response }
         }
 
         render() {
@@ -33,7 +34,7 @@ export function withData(Component, options) {
 
                         setters[setterName](this.props[options.keyName])
 
-                        return <Component {...values} />
+                        return <Component {...values} {...this.props.originalProps} />
                     }}
                 </Data.Consumer>
             )
