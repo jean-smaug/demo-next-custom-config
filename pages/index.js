@@ -30,10 +30,9 @@ const Home = (props) => {
 }
 
 Home.getInitialProps = async () => {
-  console.log("getInitialProps")
   const users = await (await fetch('http://jsonplaceholder.typicode.com/users')).json()
   
   return { users }
 }
 
-export default withData(Home)
+export default withData(Home, { keyName: "users", url: "http://jsonplaceholder.typicode.com/users" })

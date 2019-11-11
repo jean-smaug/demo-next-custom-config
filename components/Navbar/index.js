@@ -1,12 +1,14 @@
 import React from "react"
 import Link from "next/link"
 
-function Navbar(props) {
+function Navbar() {
   return (
     <nav className='Navbar'>
         <ul>
             <li>
-                <Link href="/">Accueil</Link>
+                <Link href="/">
+                    <a>Accueil</a>
+                </Link>
             </li>
         </ul>
     </nav>
