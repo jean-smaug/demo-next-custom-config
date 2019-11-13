@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react"
 import { sprintf } from "sprintf-js"
 import fetch from "isomorphic-unfetch"
+import _uniqBy from "lodash/uniqBy"
+import _isEqual from "lodash/isEqual"
 
 const Data = React.createContext()
 
@@ -13,11 +15,11 @@ export function withData(Component, options) {
         const { setters, values } = useContext(Data)
         const setterName = `set${options.keyName.charAt(0).toUpperCase()}${options.keyName.slice(1)}`
 
-        // const data = [...values[options.keyName], ...props[options.keyName]];
-        // const uniqueIndexes = [...new Set(data.map(d => d.id))]
-        // const uniqueData = uniqueIndexes.map(i => data.find(d => d.id === i))
+        const uniqueData = _uniqBy([...values[options.keyName], ...props[options.keyName]], "id")
 
-        setters[setterName](props[options.keyName])
+        if(!_isEqual(uniqueData, values[options.keyName])) {
+            setters[setterName](uniqueData)
+        }
 
         return <Component {...values} {...props.originalProps} />
     }

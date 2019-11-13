@@ -7,14 +7,15 @@ import Card from "../components/Card"
 import "../assets/styles/layout.scss"
 
 const UserPosts = (props) => {
-    const user = props.users.find(user => user.id === Number(props.userId))
+    const user = props.users.find(user => user.id === props.userId)
+    const userPosts = props.posts.filter(post => post.userId === props.userId)
 
     return (
         <div>
             {user && <h3>{user.name}</h3>}
             <ul className='FlexGrid'>
                 {
-                    props.posts.map(post => (
+                    userPosts.map(post => (
                         <Link 
                             href={{
                                 pathname: "/post",
@@ -35,7 +36,7 @@ const UserPosts = (props) => {
 }
 
 UserPosts.getInitialProps = ({ query: { userId } }) => {
-    return { namespacesRequired: [], userId }
+    return { namespacesRequired: [], userId: Number(userId) }
 }
 
 export default withData(UserPosts, {
