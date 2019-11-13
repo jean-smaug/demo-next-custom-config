@@ -1,7 +1,7 @@
 import React from "react"
 import { Link, useTranslation, i18n, withTranslation } from "../../i18n"
 
-function Navbar(props) {
+function Navbar() {
   const { t } = useTranslation("navigation")
 
   return (
