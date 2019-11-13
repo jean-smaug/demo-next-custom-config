@@ -23,11 +23,13 @@ class App extends NextApp {
     const { Component, pageProps } = this.props
 
     return (
-        <DataProvider config={[
-          { name: "users", type: "array" },
-          { name: "posts", type: "array" },
-          { name: "comments", type: "array" }
-        ]}>
+        <DataProvider config={{
+          foo: [
+            { name: "users", type: "array" },
+            { name: "posts", type: "array" },
+            { name: "comments", type: "array" }
+          ]}
+        }>
           <Component {...pageProps} />
         </DataProvider>
     ) 

@@ -35,5 +35,5 @@ UserPosts.getInitialProps = (ctx) => {
 
 export default withData(UserPosts, {
     keyName: "posts",
-    url: "http://jsonplaceholder.typicode.com/posts?userId=%(userId)s"
+    path: "/posts?userId=%(userId)s"
 })

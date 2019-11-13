@@ -5,8 +5,8 @@ import fetch from "isomorphic-unfetch"
 const Data = React.createContext()
 
 export function withData(Component, options) {
-    if(!options.url || !options.keyName) {
-        throw new Error("Must provide keyName and url")
+    if(!options.path || !options.keyName) {
+        throw new Error("Must provide keyName and path")
     }
 
     function Hoc(props) {
@@ -30,7 +30,7 @@ export function withData(Component, options) {
             ? await Component.getInitialProps(ctx)
             : {})
             
-        const response = await (await fetch(sprintf(options.url, ctx.query))).json()
+        const response = await (await fetch(`http://jsonplaceholder.typicode.com${sprintf(options.path, ctx.query)}`)).json()
 
         if (props.statusCode && ctx.res) {
             ctx.res.statusCode = props.statusCode
@@ -42,7 +42,7 @@ export function withData(Component, options) {
     return Hoc
 }
 
-export function DataProvider(props) {
+export function DataProvider({ config, children }) {
     // const states = props.config.map(({ name, type }) => {
     //     let defaultValue
     //     switch (type) {
@@ -81,7 +81,7 @@ export function DataProvider(props) {
                 },
             }}
         >
-            {props.children}
+            {children}
         </Data.Provider>
     )
 }

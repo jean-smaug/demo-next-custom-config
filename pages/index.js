@@ -21,7 +21,7 @@ const Home = (props) => {
               href={{ pathname: "/profile", query: { userId: user.id } }}
               as={`/profile/${user.id}`} key={user.id}
             >
-              <a>{user.name}</a>
+              <li>{user.name}</li>
             </Link>
           ))
         }
@@ -34,4 +34,4 @@ Home.getInitialProps = () => {
   return { namespacesRequired: ["common"] }
 }
 
-export default withData(Home, { keyName: "users", url: "http://jsonplaceholder.typicode.com/users" })
+export default withData(Home, { keyName: "users", path: "/users" })

@@ -17,5 +17,5 @@ Post.getInitialProps = (ctx) => {
 
 export default withData(Post, {
     keyName: "comments",
-    url: "http://jsonplaceholder.typicode.com/comments?postId=%(postId)s"
+    path: "/comments?postId=%(postId)s"
 })
