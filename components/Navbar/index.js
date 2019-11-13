@@ -1,13 +1,15 @@
 import React from "react"
-import Link from "next/link"
+import { Link, useTranslation, i18n, withTranslation } from "../../i18n"
 
-function Navbar() {
+function Navbar(props) {
+  const { t } = useTranslation("navigation")
+
   return (
     <nav className='Navbar'>
         <ul>
             <li>
                 <Link href="/index" as="/">
-                    <a>Accueil</a>
+                    <a>{t('home')}</a>
                 </Link>
             </li>
         </ul>
@@ -15,4 +17,8 @@ function Navbar() {
   )
 }
 
-export default Navbar
+Navbar.getInitialProps = () => {
+  return { namespacesRequired: ["navigation"] }
+}
+
+export default withTranslation()(Navbar)
