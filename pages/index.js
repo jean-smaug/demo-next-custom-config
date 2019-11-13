@@ -1,7 +1,6 @@
 import React from 'react'
-import Link from 'next/link'
 
-import { useTranslation } from '../i18n'
+import { Link, useTranslation } from '../i18n'
 import { withData } from '../contexts/Data'
 
 const Home = (props) => {

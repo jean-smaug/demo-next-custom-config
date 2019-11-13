@@ -15,6 +15,8 @@ export function withData(Component, options) {
 
         setters[setterName](props[options.keyName])
 
+        console.log(values)
+
         return <Component {...values} {...props.originalProps} />
     }
 

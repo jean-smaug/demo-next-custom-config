@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from "next/link"
+import { Link } from "../i18n"
 
 import { withData } from '../contexts/Data'
 import Card from "../components/Card"
@@ -15,13 +15,18 @@ const UserPosts = (props) => {
             <ul className='FlexGrid'>
                 {
                     props.posts.map(post => (
-                        <li key={post.id} className='FlexGridItem'>
-                            <Link href={ {pathname: "/posts", query: { postId: post.id } }} as={`/posts/${post.id}`}>
-                                <a>
-                                    <Card {...post} />
-                                </a>
-                            </Link>
-                        </li>
+                        <Link 
+                            href={{
+                                pathname: "/post",
+                                query: { postId: post.id }
+                            }}
+                            as={`/posts/${post.id}`}
+                            key={post.id}
+                        >
+                            <li className='FlexGridItem'>
+                                <Card {...post} />
+                            </li>
+                        </Link>
                     ))
                 }
             </ul>
@@ -29,8 +34,8 @@ const UserPosts = (props) => {
     )
 }
 
-UserPosts.getInitialProps = (ctx) => {
-    return { userId: ctx.query.userId }
+UserPosts.getInitialProps = ({ query: { userId } }) => {
+    return { namespacesRequired: [], userId }
 }
 
 export default withData(UserPosts, {
