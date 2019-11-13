@@ -1,13 +1,15 @@
 import React from 'react'
+import { NextPage } from 'next'
 
 import { Link, useTranslation } from '../i18n'
 import { withData } from '../contexts/Data'
+import { Users } from '../types'
 
-const Home = (props) => {
+const Home: NextPage<{ namespacesRequired: string[], users?: Users }> = (props) => {
   const { t } = useTranslation("common")
 
   if(!props.users || props.users.length === 0) {
-    return 'Loading...'
+    return <p>'Loading...'</p>
   }
 
   return (
@@ -29,7 +31,7 @@ const Home = (props) => {
   )
 }
 
-Home.getInitialProps = () => {
+Home.getInitialProps = async () => {
   return { namespacesRequired: ["common"] }
 }
 

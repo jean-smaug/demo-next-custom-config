@@ -5,10 +5,11 @@ import { withData } from '../contexts/Data'
 import Card from "../components/Card"
 
 import "../assets/styles/layout.scss"
+import { Users, Posts } from '../types'
 
-const UserPosts = (props) => {
-    const user = props.users.find(user => user.id === props.userId)
-    const userPosts = props.posts.filter(post => post.userId === props.userId)
+const UserPosts = ({ users, posts, userId }: { users: Users, posts: Posts, userId: number }) => {
+    const user = users.find(user => user.id === userId)
+    const userPosts = posts.filter(post => post.userId === userId)
 
     return (
         <div>
@@ -35,7 +36,7 @@ const UserPosts = (props) => {
     )
 }
 
-UserPosts.getInitialProps = ({ query: { userId } }) => {
+UserPosts.getInitialProps = ({ query: { userId } }: { query: { userId: string } }) => {
     return { namespacesRequired: [], userId: Number(userId) }
 }
 
