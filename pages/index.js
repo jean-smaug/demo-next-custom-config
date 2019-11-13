@@ -30,4 +30,8 @@ const Home = (props) => {
   )
 }
 
+Home.getInitialProps = () => {
+  return { namespacesRequired: ["common"] }
+}
+
 export default withData(Home, { keyName: "users", url: "http://jsonplaceholder.typicode.com/users" })

@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_ENV=development nodemon --watch server.js server.js",
+    "dev": "VERBOSE=true NODE_ENV=development nodemon --watch server.js server.js",
+    "dev:silent": "NODE_ENV=development nodemon --watch server.js server.js",
     "build": "next build",
     "start": "NODE_ENV=production node server.js"
   },

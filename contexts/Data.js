@@ -36,8 +36,7 @@ export function withData(Component, options) {
             ctx.res.statusCode = props.statusCode
         }
 
-
-        return { originalProps: props, [options.keyName]: response }
+        return { namespacesRequired: props.namespacesRequired, originalProps: props, [options.keyName]: response }
     }
 
     return Hoc
