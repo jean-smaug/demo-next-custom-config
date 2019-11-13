@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
 import { sprintf } from "sprintf-js"
 import fetch from "isomorphic-unfetch"
 
@@ -10,18 +10,12 @@ export function withData(Component, options) {
     }
 
     function Hoc(props) {
-        return (
-            <Data.Consumer>
-                {({ setters, values }) => {
-                    const setterName = `set${options.keyName.charAt(0).toUpperCase()}${options.keyName.slice(1)}`
+        const { setters, values } = useContext(Data)
+        const setterName = `set${options.keyName.charAt(0).toUpperCase()}${options.keyName.slice(1)}`
 
-                    setters[setterName](props[options.keyName])
+        setters[setterName](props[options.keyName])
 
-                    return <Component {...values} {...props.originalProps} />
-                }}
-            </Data.Consumer>
-        )
-
+        return <Component {...values} {...props.originalProps} />
     }
 
     Hoc.getInitialProps = async (ctx) => {
