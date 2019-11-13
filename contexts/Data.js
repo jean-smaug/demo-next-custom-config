@@ -13,9 +13,11 @@ export function withData(Component, options) {
         const { setters, values } = useContext(Data)
         const setterName = `set${options.keyName.charAt(0).toUpperCase()}${options.keyName.slice(1)}`
 
-        setters[setterName](props[options.keyName])
+        // const data = [...values[options.keyName], ...props[options.keyName]];
+        // const uniqueIndexes = [...new Set(data.map(d => d.id))]
+        // const uniqueData = uniqueIndexes.map(i => data.find(d => d.id === i))
 
-        console.log(values)
+        setters[setterName](props[options.keyName])
 
         return <Component {...values} {...props.originalProps} />
     }
